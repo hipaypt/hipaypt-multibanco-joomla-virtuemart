@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="3" type="plugin" group="vmpayment">
+  <name>Hipay Wallet Multibanco (ATM)</name>
+  <creationDate>November 26 2015</creationDate>
+  <author>HI-PAY PORTUGAL</author>
+  <authorUrl>http://www.hipaywallet.net</authorUrl>
+  <copyright>Copyright (C) 2015 Hi-Pay Portugal. All rights reserved.</copyright>
+  <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+  <version>1.0.0</version>
+  <description>Hipay Wallet Multibanco - ATM Payment plugin</description>
+
+  <files>
+      <filename plugin="hipaymb">hipaymb.php</filename>
+  </files>
+
+  <languages>
+    <language tag="en-GB">en-GB.plg_vmpayment_hipaymb.ini</language>
+    <language tag="en-GB">en-GB.plg_vmpayment_hipaymb.sys.ini</language>
+    <language tag="en-US">en-US.plg_vmpayment_hipaymb.ini</language>
+    <language tag="en-US">en-US.plg_vmpayment_hipaymb.sys.ini</language>
+    <language tag="pt-PT">pt-PT.plg_vmpayment_hipaymb.ini</language>
+    <language tag="pt-PT">pt-PT.plg_vmpayment_hipaymb.sys.ini</language>
+  </languages>
+
+  <params addpath="/administrator/components/com_virtuemart/elements" >
+
+  <param type="vmjpluginwarning" />
+
+    <param type="spacer" defalut=""  level="level1" />
+    
+    <param name="payment_currency" type="vmacceptedcurrency" default="" label="VMPAYMENT_HIPAYMB_CURRENCY" description="VMPAYMENT_HIPAYMB_CURRENCY_TIP" />
+
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="status_pending" type="text" size="10" default="P" label="VMPAYMENT_HIPAYMB_STATUS_PENDING" description="VMPAYMENT_HIPAYMB_STATUS_PENDING_TIP" />
+    <param type="spacer" defalut=""  level="level1" />
+    
+
+    <param name="account_sandbox" type="list" default="0" label="VMPAYMENT_HIPAYMB_SANDBOX" description="VMPAYMENT_HIPAYMB_SANDBOX_TIP">
+                    <option value="0">VMPAYMENT_HIPAYMB_NO</option>
+                    <option value="1">VMPAYMENT_HIPAYMB_YES</option>
+    </param>
+
+    <param name="account_sendemail" type="list" default="0" label="VMPAYMENT_HIPAYMB_SEND_REFERENCE_EMAIL" description="">
+                    <option value="0">VMPAYMENT_HIPAYMB_NO</option>
+                    <option value="1">VMPAYMENT_HIPAYMB_YES</option>
+    </param>
+
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="cf_entity" type="radio" default="ALL" label="VMPAYMENT_HIPAYMB_ENTITY" description="VMPAYMENT_HIPAYMB_ENTITY_TIP">
+                    <option value="11249">11 249</option>
+                    <option value="10241">10 241</option>
+    </param>
+    <param type="spacer" defalut=""  level="level1" />
+
+
+    <param name="cf_username" type="text" size="13"  label="VMPAYMENT_HIPAYMB_USERNAME" description="VMPAYMENT_HIPAYMB_USERNAME_TIP" />
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="cf_password" type="text" size="13"  label="VMPAYMENT_HIPAYMB_PASSWORD" description="VMPAYMENT_HIPAYMB_PASSWORD_TIP"/>
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="cf_days" type="text" size="13"  label="VMPAYMENT_HIPAYMB_VALIDITY" description="VMPAYMENT_HIPAYMB_VALIDITY_TIP" />
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="countries" type="vmcountries"  scope="com_virtuemart"  label="VMPAYMENT_HIPAYMB_COUNTRIES" description="VMPAYMENT_HIPAY_COUNTRIES_TIP"/>
+    <param type="spacer" defalut=""  level="level1" />
+
+    <param name="min_amount" type="text"  label="VMPAYMENT_HIPAYMB_MIN_AMOUNT" description="" />
+    <param type="spacer" defalut=""  level="level1" />
+    
+    <param name="max_amount" type="text"  label="VMPAYMENT_HIPAYMB_MAX_AMOUNT" description="" />
+    <param type="spacer" defalut=""  level="level1" />
+
+  </params>
+
+</extension>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension version="2.5" type="plugin" group="vmpayment" method="upgrade">
+    <name>Hipay Comprafacil</name>
+    <creationDate>February 22 2017</creationDate>
+    <author>HI-PAY PORTUGAL</author>
+    <authorUrl>http://www.hipaycomprafacil.pt</authorUrl>
+    <copyright>Copyright (C) 2017 Hi-Pay Portugal. All rights reserved.</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <version>1.0.0</version>
+    <description>Hipay Comprafacil Payment plugin</description>
+
+    <files>
+        <filename plugin="hipaymb">hipaymb.php</filename>
+        <folder>language</folder>
+        <folder>images</folder>
+    </files>
+
+    <media destination="../images/stories/virtuemart/payment" folder="images">
+        <filename>multibanco_horizontal.jpg</filename>
+        <filename>multibanco_vertical.jpg</filename>
+    </media>
+
+    <vmconfig>
+        <fields name="params">
+            <fieldset name="payment" addfieldpath="/administrator/components/com_virtuemart/fields">
+
+                <field name="status_pending" type="vmorderstate" scope="com_virtuemart" default="P"
+                       label="VMPAYMENT_HIPAYMB_STATUS_PENDING" description="VMPAYMENT_HIPAYMB_STATUS_PENDING_TIP"/>
+
+
+            </fieldset>
+
+
+            <fieldset name="account">
+
+                <field name="account_sandbox" type="list" default="0" label="VMPAYMENT_HIPAYMB_SANDBOX" description="VMPAYMENT_HIPAYMB_SANDBOX_TIP">
+                    <option value="0">VMPAYMENT_HIPAYMB_NO</option>
+                    <option value="1">VMPAYMENT_HIPAYMB_YES</option>
+                </field>
+
+
+                <field name="account_entity" type="list" default="0" label="VMPAYMENT_HIPAYMB_ENTITY" description="VMPAYMENT_HIPAYMB_ENTITY_TIP">
+                    <option value="11249">11 249</option>
+                    <option value="10241">10 241 / 12 029</option>
+                </field>
+
+                <field name="account_username" type="text" label="VMPAYMENT_HIPAYMB_ACCOUNTID"
+                       description="VMPAYMENT_HIPAYMB_ACCOUNTID"/>
+
+                <field name="account_password" type="text" label="VMPAYMENT_HIPAYMB_PASSWORD"
+                       description="VMPAYMENT_HIPAYMB_PASSWORD"/>
+
+                <field name="account_validity" type="list" default="0" label="VMPAYMENT_HIPAYMB_VALIDITY" description="VMPAYMENT_HIPAYMB_VALIDITY_TIP">
+                    <option value="3">3</option>
+                    <option value="30">30</option>
+                    <option value="90">90</option>
+                </field>
+
+
+                <field name="account_sendemail" type="list" default="0" label="VMPAYMENT_HIPAYMB_SENDEMAIL" description="VMPAYMENT_HIPAYMB_SENDEMAIL_TIP">
+                    <option value="0">VMPAYMENT_HIPAYMB_NO</option>
+                    <option value="1">VMPAYMENT_HIPAYMB_YES</option>
+                </field>
+
+
+            </fieldset>
+
+
+            <fieldset name="template">
+                <field name="payment_logos" type="vmfiles" multiple="true" directory="/images/stories/virtuemart/payment"
+                       hide_none="1" label="VMPAYMENT_HIPAYMB_LOGOS"
+                       size="40"
+                       description="VMPAYMENT_HIPAYMB_LOGOS_TIP"/>
+
+            </fieldset>
+
+
+            <fieldset name="restrictions" >
+                <field name="countries" multiple="true" type="vmcountries" scope="com_virtuemart" default=""
+                       label="VMPAYMENT_HIPAYMB_COUNTRIES" description="VMPAYMENT_HIPAYMB_COUNTRIES_TIP"/>
+                <field name="min_amount" type="text" label="VMPAYMENT_HIPAYMB_MIN_AMOUNT"
+                       description="VMPAYMENT_HIPAYMB_MIN_AMOUNT_TIP" default="1" />
+                <field name="max_amount" type="text" label="VMPAYMENT_HIPAYMB_MAX_AMOUNT"
+                       description="VMPAYMENT_HIPAYMB_MAX_AMOUNT_TIP" default="2500" />
+            </fieldset>
+
+        </fields>
+    </vmconfig>
+
+</extension>
