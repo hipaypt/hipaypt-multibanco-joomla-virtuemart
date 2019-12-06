@@ -1,0 +1,280 @@
+<HEAD>
+</HEAD>
+<style type="text/css"> .style1 { color: #FF0000; font-weight: bold; }
+	</style>
+<STRONG><FONT color="#009900" size="6">
+		<h1>Módulo CompraFácil para VirtueMart</h1>
+	</FONT>
+	<br>
+</STRONG>
+<br>
+<EM>v2.52 - 22/10/2010</EM>
+<br>
+<br>
+<STRONG><EM><FONT color="red" size="5">
+			<h1>Guia de Instalação rápida</h1>
+		</FONT>
+		<br>
+	</EM></STRONG>
+<br>
+<b>Conteúdo:<br>
+</b>
+<br>
+0. <a href="#Compatibilidade">Compatibilidade</a><br>
+1. <a href="#instalacao">Instalação</a><br>
+2. <a href="#URL_de_callback">URL de callback</a><br>
+&nbsp;&nbsp;&nbsp; 2.1 <a href="#parametros_callback">Parâmetros do ficheiro de 
+	callback</a><BR>
+3. <A href="#historico">Histórico</A><BR>
+<br>
+<br>
+
+<FONT color="blue" size="4"><STRONG><a name="Compatibilidade"></a>
+		<h2>0. Compatibilidade</h2>
+	</STRONG></FONT>
+<br>
+	Este módulo foi testado nas versões 1.1.4 e 1.1.5 do Virtuemart.
+	<br><br>
+	
+<FONT color="blue" size="4"><STRONG><a name="instalacao"></a>
+		<h2>1. Instalação</h2>
+	</STRONG></FONT>As scripts devem ser colocadas da seguinte forma:<br>
+<br>
+<table cellpadding="2" border="1">
+	<tr>
+		<td><b>pasta origem nesta distribuição</b></td>
+		<td><b>pasta destino no site</b></td>
+	</tr>
+	<tr>
+		<td>\virtuemart1.1.4</td>
+		<td>[joomla]\administrator\components\com_virtuemart\classes\payment</td>
+	</tr>
+	<tr>
+		<td>\callback</td>
+		<td>[joomla]\ (raiz do site)</td>
+	</tr>
+</table>
+<br>
+O processo de instalação consiste nos seguintes passos:
+<br>
+<br>
+<STRONG><FONT color="red">1)</FONT></STRONG> Copiar as scripts 
+fornecidas&nbsp;&nbsp;para o local indicado (conforme tabela anterior).
+<br>
+<br>
+<STRONG><FONT color="red">2)</FONT></STRONG> Na administração do VirtueMart 
+criar dois novos método de pagamento, um para Multibanco, outro para PayShop 
+(desta forma será possível seleccionar um deles no processo de checkout na 
+loja)<BR>
+<BR>
+para <STRONG><U>referências multibanco:<BR>
+		<BR>
+	</U></STRONG>o parâmetro&nbsp;"payment class name" deve ser 
+"ps_comprafacil" se a extensão SOAP do PHP estiver activa, ou "ps_comprafacil2" 
+caso contrário. O tipo de pagamento deverá ser HTML-Form; o código do método de 
+pagamento pode ser CF.
+<br>
+<BR>
+para <STRONG><U>referências PayShop:<BR>
+		<BR>
+	</U></STRONG>o parâmetro&nbsp;"payment class name" deve ser 
+"ps_comprafacil_payshop" se a extensão SOAP do PHP estiver activa, ou 
+"ps_comprafacil2_payshop" caso contrário. O tipo de pagamento deverá ser 
+HTML-Form; o código do método de pagamento pode ser PS.<BR>
+<BR>
+<BR>
+<STRONG><FONT color="red">3)</FONT></STRONG> Na página de configuração do 
+método de pagamento:
+<br>
+<br>
+<STRONG><FONT color="red">3.1)</FONT></STRONG> Preencher os dados de acesso ao 
+sistema CompraFacil com os dados necessários (username e password - devem ser 
+fornecidos pela Himedia).
+<br>
+<br>
+<STRONG><FONT color="red">3.2)</FONT></STRONG> Especificar a origem que será 
+mostrada associada às referências geradas. (<STRONG>Nota</STRONG>: este modulo 
+não suporta a utilização do campo origem para especificar URL de chamada de 
+retorno por parte do sistema CompraFácil. Para especificar URLs de chamada 
+deve-se usar o campo respectivo que existe no backoffice do CompraFácil)
+<BR>
+<BR>
+<STRONG><FONT color="red">3.3)</FONT></STRONG> Seleccionar a entidade a 
+utilizar (10241 ou 11249)
+<br>
+<br>
+<STRONG><FONT color="red">3.4)</FONT></STRONG> Seleccionar se está a funcionar 
+em modo de teste (isto implica que o modulo use o sistema de testes 
+CompraFácil, para o qual são necessários dados de acesso apropriados fornecidos 
+pela Himedia)
+<br>
+<br>
+<STRONG><FONT color="red">4)</FONT></STRONG> preencher o campo Payment Extra 
+Info com o código (ou semelhante, conforme as necessidades do cliente):
+<br>
+<BR>
+para <STRONG><U>referências multibanco:</U></STRONG><BR>
+<pre><FONT color="blue">
+
+&lt;?php
+if ( isset($_SESSION['cf_reference'])) {
+?&gt;
+
+Para pagar deverá dirigir-se a uma caixa Multibanco ou utilizar o seu &lt;i&gt;homebanking&lt;/i&gt;.
+&lt;br&gt;&lt;br&gt;
+Os dados para pagamento são:
+&lt;br&gt;&lt;br&gt;
+
+&lt;b&gt;Referência:&lt;/b&gt; &lt;?php echo $_SESSION['cf_reference']?&gt;&lt;br&gt;
+&lt;b&gt;Entidade:&lt;/b&gt; &lt;?php echo $_SESSION['cf_entity']?&gt;&lt;br&gt;
+&lt;b&gt;Valor:&lt;/b&gt; &lt;?php echo $_SESSION['cf_value']?&gt; euros&lt;br&gt;
+
+&lt;?php
+$_SESSION['cf_reference']=null;
+}
+?&gt;
+
+
+</FONT><BR>
+</pre>
+<br>
+para <STRONG><U>referências PayShop:</U></STRONG><BR>
+<pre><FONT color=blue>&lt;?php
+if ( isset($_SESSION['cf_reference'])) {
+?&gt;
+Para pagar deverá dirigir-se a um agente PayShop.
+&lt;br&gt;&lt;br&gt;
+Os dados para pagamento são:
+&lt;br&gt;&lt;br&gt;
+&lt;b&gt;Referência:&lt;/b&gt; &lt;?php echo $_SESSION['cf_reference']
+?&gt;&lt;br&gt;
+&lt;b&gt;Data limite de pagamento:&lt;/b&gt; &lt;?php echo
+$_SESSION['cf_datelimit'] ?&gt;&lt;br&gt;
+&lt;b&gt;Valor:&lt;/b&gt; &lt;?php echo $_SESSION['cf_value'] ?&gt;
+euros&lt;br&gt;
+&lt;?php
+$_SESSION['cf_reference'] = null;
+}
+?&gt;</FONT><BR><BR>
+</pre>
+<br>
+<br>
+<STRONG><FONT color="red" size="5">Atenção:</FONT></STRONG><BR>
+<BR>
+Este módulo armazena na encomenda, no campo "Customer note" a informação da 
+referência gerada. Para isto, é necessário alterar o ficheiro:<BR>
+<BR>
+<STRONG>[joomla]\administrator\components\com_virtuemart\classes\ps_checkout .php<BR>
+	<BR>
+</STRONG>Neste ficheirto, a partir da linha 969 existe o seguinte código:<BR>
+<BR>
+<BR>
+<pre>		<FONT color=blue>// Collect all fields and values to store them!
+		$fields = array(
+			'user_id' =&gt; $auth["user_id"],
+			'vendor_id' =&gt; $ps_vendor_id,
+			'order_number' =&gt; $order_number,
+			'user_info_id' =&gt;  $d["ship_to_info_id"],
+			'ship_method_id' =&gt; @urldecode($d["shipping_rate_id"]),
+			'order_total' =&gt; $order_total,
+			'order_subtotal' =&gt; $order_subtotal,
+			'order_tax' =&gt; $order_tax,
+			'order_tax_details' =&gt; serialize($order_tax_details),
+			'order_shipping' =&gt; $order_shipping,
+			'order_shipping_tax' =&gt; $order_shipping_tax,
+			'order_discount' =&gt; $payment_discount,
+			'coupon_discount' =&gt; $coupon_discount,
+			'coupon_code' =&gt; @$_SESSION['coupon_code'],
+			'order_currency' =&gt; $GLOBALS['product_currency'],
+			'order_status' =&gt; 'P',
+			'cdate' =&gt; $timestamp,
+			'mdate' =&gt; $timestamp,
+			<FONT color=red>'customer_note' =&gt; htmlspecialchars(vmRequest::getString('customer_note','', 'POST', 'none' ),ENT_QUOTES ),
+</FONT>			'ip_address' =&gt; $ip
+			);</FONT>
+	</pre>
+Neste código, a linha<BR>
+<BR>
+<pre>
+<FONT color="red">'customer_note' =&gt; htmlspecialchars(vmRequest::getString('customer_note','', 'POST', 'none' ), ENT_QUOTES ), </FONT></pre>
+deve passar a<BR>
+<BR>
+<pre>
+<FONT color="red"> 'customer_note' =&gt; htmlspecialchars(vmGet($d,'customer_note') , ENT_QUOTES), </FONT><BR><BR>
+</pre>
+Este ficheiro está incluído nesta distribuição na pasta "<STRONG>ficheiro_checkout</STRONG>"
+<BR>
+<BR>
+<FONT color="blue" size="4"><STRONG>
+		<h2>2. URL de callback</h2>
+	</STRONG></FONT>
+<br>
+O CompraFácil pode chamar URLs para notificar o parceiro que uma dada 
+referência foi paga (nota: esta funcionalidade terá de ser activada a pedido do 
+parceiro à Himedia). Para tal, estas devem ser especificadas no campo "origem" 
+na chamada que é feita ao webservice do CompraFácil. Os presentes módulos de 
+pagamento para Virtuemart permitem configurar o conteúdo a passar no campo 
+"origem" quando é feito o pedido de geração de uma referência.<br>
+<br>
+O URL a especificar é na forma:<br>
+<br>
+<b>http://www.exemplo.com/CFCallback.php?orderID=[ORDERNUM]</b><br>
+<br>
+O ficheiro a ser chamado é o <b>CFCallback.php</b> que, como referido 
+anteriormente, deve ser colocado na raiz do site.<br>
+<br>
+Este ficheiro, quando chamado pelo CompraFácil irá receber o número de 
+encomenda do Virtuemart. Para isto deve ser usado o parâmetro <b>orderID</b> e 
+a <i>tag</i> <b>[ORDERNUM]</b>.<br>
+<br>
+A <i>tag</i> <b>[ORDERNUM]</b> na chamada ao CompraFácil é substituida 
+automáticamente pelo número de encomenda do Virtuemart respectivo. Este número 
+de encomenda é encriptado, sendo usado no algorimo a chave definida nas 
+propriedades do método de pagamento seleccionado.<br>
+<a name="parametros_callback"></a>
+<h3><FONT color="blue" size="3">2.1 Parâmetros do ficheiro de callback</FONT></h3>
+O ficheiro <b>CFCallback.php</b> utiliza duas variáveis que devem ser alteradas 
+conforme necessário.<br>
+<br>
+A variável <b>$newOrderStatus</b> especifica o novo estado com que a encomenda 
+irá ficar encomenda no caso da chamada ao URL ser bem sucedida. Por defeito 
+está com o valor 'C'.<br>
+<br>
+$newOrderStatus = 'C';<br>
+<br>
+Deverá ser alterada com o código do estado para o qual as encomendas devem 
+passar após a confirmação de pagamento.<br>
+<br>
+A variável <b>$key</b> especifica a chave de encriptação utilizada para 
+descriptar o valor do número de encomenda que é recebido do CompraFácil. Deve 
+ser usada a mesma chave que estiver especificada nas propriedades do método de 
+pagamento utilizado no Virtuemart.
+<br>
+<br>
+<span class="style1">Atenção:</span>
+Se estiverem activos os métodos de pagamento por Multibanco e por PayShop, a 
+chave de encriptação deve ser a mesma em ambos, bem como no ficheiro <b>CFCallback.php</b>.<br>
+<br>
+<br>
+<FONT color="blue" size="4"><STRONG><a name="historico"></a>
+		<h2>3. Histórico</h2>
+	</STRONG></FONT>
+<br>
+v 2.5.2:
+<br>
+- Alterações no manual de instalação
+<br>
+<br>
+
+v 2.5.1:
+<br>
+- envio de email para o CF
+<br>
+<br>
+v 2.5:
+<br>
+- melhorado suporte para ambiente de testes do CF
+<br>
+- criação de funcionalidade de callback
+<br>
+<br>
